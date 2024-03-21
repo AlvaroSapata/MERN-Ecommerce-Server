@@ -202,6 +202,33 @@ app.post("/signup", async (req, res) => {
   res.json({ success, token });
 });
 
+// Product Routes
+// ℹ️ Gets all the products from the database
+app.get("/allproducts", async (req, res) => {
+	let products = await Product.find({});
+  console.log("All Products");
+    res.send(products);
+});
+
+// ℹ️ Gets the New Collections products from the database
+app.get("/newcollections", async (req, res) => {
+	let products = await Product.find({});
+  let arr = products.slice(1).slice(-8);
+  console.log("New Collections");
+  res.send(arr);
+});
+
+// ℹ️ Gets the Popular in women products from the database
+app.get("/popularinwomen", async (req, res) => {
+	let products = await Product.find({});
+  let arr = products.splice(0,  4);
+  console.log("Popular In Women");
+  res.send(arr);
+});
+
+
+
+// ℹ️ Port Listener
 app.listen(port, (error) => {
   if (!error) console.log("Server Running on port " + port);
   else console.log("Error : ", error);
