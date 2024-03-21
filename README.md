@@ -76,7 +76,8 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-This is the Server side of a Basic Ecommerce, in this case focused on a handmade serigraph store.
+This is the Server side of a Basic Ecommerce Template, in this case focused on a handmade serigraph store.
+This template is designed to help you create your own online store.
 
 Here's why:
 * Your time should be focused on creating something amazing. A project that solves a problem and helps others
@@ -102,6 +103,8 @@ This are the frameworks/libraries used in this project.
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url] -->
 * [![Node][Node.com]][Node-url]
+* [![Express][Express.com]][Express-url]
+* [![MongoDB][MongoDB.com]][MongoDB-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -152,6 +155,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 ## Roadmap
 
 - [ ] Add Changelog
+- [ ] Add Stripe
 - [ ] Add more featured pages
 - [ ] Add verifications
 - [ ] Multi-language Support
