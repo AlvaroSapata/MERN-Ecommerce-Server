@@ -77,7 +77,8 @@
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 This is the Server side of a Basic Ecommerce Template, in this case focused on a handmade serigraph store.
-This template is designed to help you create your own online store.
+This template is designed to help you create your own online store in the easiest way possible.
+This project is created in a sigle JS file with comments so you can start building your project with just some simple changes.
 
 Here's why:
 * Your time should be focused on creating something amazing. A project that solves a problem and helps others
@@ -105,6 +106,8 @@ This are the frameworks/libraries used in this project.
 * [![Node][Node.com]][Node-url]
 * [![Express][Express.com]][Express-url]
 * [![MongoDB][MongoDB.com]][MongoDB-url]
+* [![Multer][Multer.com]][Multer-url]
+* [![jwt][jwt.com]][jwt-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
