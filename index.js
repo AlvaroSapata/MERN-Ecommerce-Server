@@ -150,20 +150,16 @@ app.post("/login", async (req, res) => {
       const token = jwt.sign(data, "secret_ecom");
       res.json({ success, token });
     } else {
-      return res
-        .status(400)
-        .json({
-          success: success,
-          errors: "please try with correct email/password",
-        });
-    }
-  } else {
-    return res
-      .status(400)
-      .json({
+      return res.status(400).json({
         success: success,
         errors: "please try with correct email/password",
       });
+    }
+  } else {
+    return res.status(400).json({
+      success: success,
+      errors: "please try with correct email/password",
+    });
   }
 });
 
@@ -173,12 +169,10 @@ app.post("/signup", async (req, res) => {
   let success = false;
   let check = await Users.findOne({ email: req.body.email });
   if (check) {
-    return res
-      .status(400)
-      .json({
-        success: success,
-        errors: "existing user found with this email",
-      });
+    return res.status(400).json({
+      success: success,
+      errors: "existing user found with this email",
+    });
   }
   let cart = {};
   for (let i = 0; i < 300; i++) {
@@ -205,14 +199,14 @@ app.post("/signup", async (req, res) => {
 // Product Routes
 // ℹ️ Gets all the products from the database
 app.get("/allproducts", async (req, res) => {
-	let products = await Product.find({});
+  let products = await Product.find({});
   console.log("All Products");
-    res.send(products);
+  res.send(products);
 });
 
 // ℹ️ Gets the New Collections products from the database
 app.get("/newcollections", async (req, res) => {
-	let products = await Product.find({});
+  let products = await Product.find({});
   let arr = products.slice(1).slice(-8);
   console.log("New Collections");
   res.send(arr);
@@ -220,13 +214,78 @@ app.get("/newcollections", async (req, res) => {
 
 // ℹ️ Gets the Popular in women products from the database
 app.get("/popularinwomen", async (req, res) => {
-	let products = await Product.find({});
-  let arr = products.splice(0,  4);
+  let products = await Product.find({});
+  let arr = products.splice(0, 4);
   console.log("Popular In Women");
   res.send(arr);
 });
 
+// Cart Routes
+// ℹ️ Create an endpoint for saving the product in cart
+app.post("/addtocart", fetchuser, async (req, res) => {
+  console.log("Add Cart");
+  let userData = await Users.findOne({ _id: req.user.id });
+  userData.cartData[req.body.itemId] += 1;
+  await Users.findOneAndUpdate(
+    { _id: req.user.id },
+    { cartData: userData.cartData }
+  );
+  res.send("Added");
+});
 
+// ℹ️ Create an endpoint for saving the product in cart
+app.post("/removefromcart", fetchuser, async (req, res) => {
+  console.log("Remove Cart");
+  let userData = await Users.findOne({ _id: req.user.id });
+  if (userData.cartData[req.body.itemId] != 0) {
+    userData.cartData[req.body.itemId] -= 1;
+  }
+  await Users.findOneAndUpdate(
+    { _id: req.user.id },
+    { cartData: userData.cartData }
+  );
+  res.send("Removed");
+});
+
+// ℹ️ Create an endpoint for saving the product in cart
+app.post("/getcart", fetchuser, async (req, res) => {
+  console.log("Get Cart");
+  let userData = await Users.findOne({ _id: req.user.id });
+  res.json(userData.cartData);
+});
+
+// Admin Routes
+// ℹ️ Create an endpoint for adding a new product
+app.post("/addproduct", async (req, res) => {
+  let products = await Product.find({});
+  let id;
+  if (products.length > 0) {
+    let last_product_array = products.slice(-1);
+    let last_product = last_product_array[0];
+    id = last_product.id + 1;
+  } else {
+    id = 1;
+  }
+  const product = new Product({
+    id: id,
+    name: req.body.name,
+    image: req.body.image,
+    category: req.body.category,
+    new_price: req.body.new_price,
+    old_price: req.body.old_price,
+  });
+  console.log(product);
+  await product.save();
+  console.log("Saved");
+  res.json({ success: true, name: req.body.name });
+});
+
+// ℹ️ Create an endpoint for deleting a product
+app.post("/removeproduct", async (req, res) => {
+  const product = await Product.findOneAndDelete({ id: req.body.id });
+  console.log("Removed");
+  res.json({ success: true, name: req.body.name });
+});
 
 // ℹ️ Port Listener
 app.listen(port, (error) => {

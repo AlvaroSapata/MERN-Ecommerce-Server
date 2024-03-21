@@ -87,6 +87,11 @@ Here's why:
 
 Feel free to clone the repo and use it for your own Ecommerce!
 
+Here you can get the Admin and Frontend code to make your Ecommerce totally functional
+
+* Admin Link
+* Frontend Link
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -157,12 +162,16 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
+- [ ] Add update products route
 - [ ] Add Changelog
 - [ ] Add Stripe
 - [ ] Add more featured pages
 - [ ] Add verifications
 - [ ] Multi-language Support
     - [ ] Spanish
+- [ ] Ligth-Dark Theme
+    - [ ] Light
+    - [ ] Dark
 
 See the [open issues](https://github.com/AlvaroSapata/MERN-Ecommerce-Server/issues) for a full list of proposed features (and known issues).
 
