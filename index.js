@@ -7,6 +7,10 @@ const express = require("express");
 const app = express();
 const jwt = require("jsonwebtoken");
 
+// ℹ️ This ensures your app is loading the .env file
+require('dotenv').config();
+
+
 // ℹ️ package responsible to store images
 const multer = require("multer");
 const path = require("path");
@@ -14,6 +18,7 @@ const cors = require("cors");
 
 app.use(express.json());
 app.use(cors());
+
 
 //* -------- Database Connection With MongoDB -------- *//
 // ℹ️ Sets the MongoDB URI for our app to have access to it.
