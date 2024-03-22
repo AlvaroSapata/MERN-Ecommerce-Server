@@ -289,7 +289,7 @@ app.post("/addproduct", async (req, res) => {
 app.post("/removeproduct", async (req, res) => {
   const product = await Product.findOneAndDelete({ id: req.body.id });
   console.log("Removed");
-  res.json({ success: true, name: req.body.name });
+  res.json({ success: true, name: product.name }); // Enviar el nombre del producto eliminado
 });
 
 // ℹ️ Port Listener
