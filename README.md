@@ -1,3 +1,5 @@
+<!--! TODO: IsAuthenticated, isAdmin???, añadir rutas de popular in Men, popular in Kids -->
+
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
 
