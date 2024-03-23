@@ -10,7 +10,7 @@ router.get("/all", async (req, res) => {
   try {
     const products = await Product.find();
     if (products.length === 0) {
-      res.status(404).json({ message: "No hay productos." }); // Enviar un código de estado 404 para indicar que no se encontraron productos
+      res.status(200).json({ message: "No hay productos." }); // Enviar un código de estado 404 para indicar que no se encontraron productos
     } else {
       res.json(products);
     }
