@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Ruta para subir imágenes
-router.post("/upload", upload.single("product"), (req, res) => {
+router.post("/upload", upload.single("image"), (req, res) => {
     res.json({
         success: 1,
         image_url: `http://localhost:5005/images/${req.file.filename}`,

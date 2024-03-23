@@ -67,11 +67,14 @@ router.put(
   /* isAuthenticated, */
   /* isAdmin, */ async (req, res) => {
     try {
+      console.log("params",req.params)
+      console.log("body",req.body)
       const updatedProduct = await Product.findByIdAndUpdate(
         req.params.productId,
         req.body,
         { new: true }
       );
+      console.log(updatedProduct)
       if (updatedProduct) {
         res.status(200).json({
           message: "Producto editado con éxito",
