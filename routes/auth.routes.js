@@ -72,6 +72,7 @@ router.post("/login", (req, res, next) => {
   // Check the users collection if a user with the same email exists
   User.findOne({ email })
     .then((foundUser) => {
+      console.log(foundUser)
       if (!foundUser) {
         return res.status(401).json({ message: "User not found." });
       }
@@ -89,7 +90,7 @@ router.post("/login", (req, res, next) => {
 
         return res.status(200).json({ authToken: authToken });
       } else {
-        return res.status(401).json({ message: "Unable to authenticate the user" });
+        return res.status(401).json({ message: "Incorrect password." });
       }
     })
     .catch((err) => next(err));
@@ -106,5 +107,24 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
   // Send back the token payload object containing the user data
   res.status(200).json(req.payload);
 });
+
+// GET /auth/users - Retrieves all users from the database
+router.get("/users", (req, res, next) => {
+  // Verificar si el usuario actual tiene permiso para acceder a esta ruta
+  // Esta verificación puede variar dependiendo de cómo manejes los roles y permisos en tu aplicación
+
+  // Consultar todos los usuarios en la base de datos
+  User.find({})
+    .then((users) => {
+      // Si se encuentran usuarios, enviar una respuesta con la lista de usuarios
+      res.status(200).json(users);
+    })
+    .catch((err) => {
+      // Si ocurre un error al consultar la base de datos, enviar una respuesta de error
+      console.error("Error retrieving users:", err);
+      res.status(500).json({ message: "Internal server error" });
+    });
+});
+
 
 module.exports = router;
