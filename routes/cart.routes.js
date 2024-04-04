@@ -7,38 +7,44 @@ router.get("/", (req, res, next) => {
   res.json("Checking Lagrima cart route");
 });
 
-//* GET /cart/userCart - devuelve todos los productos del carrito
 router.get("/userCart", isAuthenticated, async (req, res, next) => {
   const userId = req.payload._id;
-
+  console.log(userId);
   try {
     const response = await User.findById(userId).populate(
       "cart.productId",
-      "_id name image price"
+      "_id name image new_price"
     );
+    console.log(response)
+
+    if (!response) {
+      // No se encontró ningún carrito para el usuario
+      return res.status(404).json({ message: "No se encontró ningún carrito para este usuario" });
+    }
 
     if (response.cart.length === 0) {
       // El carrito está vacío, devuelve un mensaje
-      res.json({ message: "Tu carrito está vacío" });
-    } else {
-      // El carrito contiene productos, devuélvelos
-      let totalPrice = 0;
-      let quantity = 0;
-      response.cart.forEach((product) => {
-        console.log(product);
-        totalPrice += product.productId.price * product.quantity;
-        quantity += product.quantity
-      });
-      res.json({
-        cart: response.cart,
-        totalPrice: totalPrice,
-        quantity: quantity,
-      });
+      return res.json({ message: "Tu carrito está vacío" });
     }
+
+    // El carrito contiene productos, devuélvelos
+    let totalPrice = 0;
+    let quantity = 0;
+    response.cart.forEach((product) => {
+      console.log("product", product);
+      totalPrice += product.productId.new_price * product.quantity;
+      quantity += product.quantity;
+    });
+    res.json({
+      cart: response.cart,
+      totalPrice: totalPrice,
+      quantity: quantity,
+    });
   } catch (err) {
     next(err);
   }
 });
+
 
 //* PATCH /cart/:productId/add - añade un producto a la compra en el array del carrito del usuario
 router.patch("/:productId/add", isAuthenticated, async (req, res, next) => {

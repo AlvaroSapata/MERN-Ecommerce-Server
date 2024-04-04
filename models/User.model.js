@@ -14,9 +14,18 @@ const userSchema = new Schema(
     password: {
       type: String,
     },
-    cartData: {
-      type: Object,
-    },
+    cart: [
+      {
+        productId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+        },
+        quantity: {
+          type: Number,
+          default: 1,
+        },
+      },
+    ],
     date: {
       type: Date,
       default: Date.now,
