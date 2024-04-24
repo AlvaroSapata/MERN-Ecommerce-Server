@@ -22,8 +22,21 @@ function getTokenFromHeaders(req) {
   return null;
 }
 
+// Middleware to check if the user has admin role
+function isAdmin(req, res, next) {
+  // Check if the payload contains the role information
+  const { payload } = req;
+  if (payload && payload.role === "admin") {
+    // If the user has admin role, call the next middleware
+    next();
+  } else {
+    // If the user doesn't have admin role, return unauthorized error
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+}
+
 // Export the middleware so that we can use it to create protected routes
 module.exports = {
   isAuthenticated,
+  isAdmin,
 };
-

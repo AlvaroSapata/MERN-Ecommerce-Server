@@ -56,7 +56,9 @@ router.post("/signup", (req, res, next) => {
       const user = { email, name, role, _id };
       return res.status(201).json({ user: user });
     })
-    .catch((err) => next(err));
+    .catch((err) => {
+      next(err)
+    });
 });
 
 
@@ -93,7 +95,10 @@ router.post("/login", (req, res, next) => {
         return res.status(401).json({ message: "Incorrect password." });
       }
     })
-    .catch((err) => next(err));
+    .catch((err) => {
+      console.error("Error during login:", err);
+      next(err);
+    });
 });
 
 

@@ -21,7 +21,7 @@ const upload = multer({ storage: storage });
 router.post("/upload", upload.single("image"), (req, res) => {
     res.json({
         success: 1,
-        image_url: `http://localhost:5005/images/${req.file.filename}`,
+        image_url: `https://lagrima-server.adaptable.app/images/${req.file.filename}`,
     });
 });
 

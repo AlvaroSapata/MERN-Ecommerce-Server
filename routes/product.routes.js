@@ -2,8 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/Product.model"); // Asegúrate de importar tu modelo de producto
-// const { isAuthenticated } = require("../middleware/jwt.middleware");
-// const { isAdmin } = require("../middleware/isAdmin.middleware");
+// const { isAuthenticated, isAdmin } = require("../middleware/jwt.middleware");
 
 //* GET /products/all - Ruta para obtener todos los productos
 router.get("/all", async (req, res) => {

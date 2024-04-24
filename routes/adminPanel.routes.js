@@ -1,9 +1,10 @@
 // Importa el enrutador de Express
 const router = require("express").Router();
 const Product = require("../models/Product.model");
+const { isAuthenticated, isAdmin } = require("../middleware/jwt.middleware");
 
 // Define la ruta para agregar un nuevo producto
-router.post("/addproduct", async (req, res) => {
+router.post("/addproduct",isAuthenticated, isAdmin, async (req, res) => {
   try {
     let products = await Product.find({});
     let id = products.length > 0 ? products[products.length - 1].id + 1 : 1;
@@ -27,7 +28,7 @@ router.post("/addproduct", async (req, res) => {
 });
 
 // Define la ruta para eliminar un producto
-router.post("/removeproduct", async (req, res) => {
+router.post("/removeproduct", isAuthenticated, isAdmin,async (req, res) => {
   try {
     const product = await Product.findOneAndDelete({ id: req.body.id });
     console.log("Removed");
